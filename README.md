@@ -31,9 +31,11 @@ AWS Cost Metrics Exporter fetches cost data from a list of AWS accounts, each of
 
 ## Setup AWS IAM User, Role, and Policy
 
-Note that if there is a list of AWS accounts for cost data collection, only **ONE** user needs to be created. This user is usually created in the AWS account where the exporter is deployed (an EKS cluster). This can be done from the AWS console - IAM portal or by terraform code.
+Note that if there is a list of AWS accounts for cost data collection, only **ONE** user needs to be created. This user is usually created in the AWS account where the exporter is deployed (an EKS cluster). This can be done from the AWS console - IAM portal or by terraform code. In this exporter, we have two ways to auth this user:
+- Default is use iam role / iam user if we leave both fields `aws_access_key` & `aws_secret_key` is null value in configuration file (ex: `exporter_config.yaml`)
+- Use a pair key: `aws_access_key` & `aws_secret_key` 
 
-After creating the user, visit the security credentials tab and create an access key for it. The access key and secret key will be needed when deploying the exporter.
+For use a pair `aws_access_key` & `aws_secret_key`, after creating the user, visit the security credentials tab and create an access key for it. The access key and secret key will be needed when deploying the exporter.
 
 For each target AWS account, a role for AWS Cost Metrics Exporter needs to be created. The name of this role needs to be put into the configuration file (`aws_assumed_role_name`).
 
